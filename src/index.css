@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+:root {
+    --background: 240 33% 6%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 217 88% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 33% 10%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 20% 15%;
+    --muted-foreground: 0 0% 80%;
+
+    --accent: 217 88% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 20% 20%;
+    --input: 240 20% 20%;
+    --ring: 217 88% 55%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 0%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 217 88% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 33% 10%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 240 20% 20%;
+    --sidebar-ring: 217 88% 55%;
+
+    --chat-bubble-bot: 240 33% 12%;
+    --chat-bubble-user: 217 88% 55%;
+    --success: 142 71% 45%;
+    --gradient-primary: linear-gradient(135deg, hsl(217 88% 55%), hsl(217 88% 65%));
+    --gradient-dark: linear-gradient(180deg, hsl(240 33% 6%), hsl(0 0% 0%));
+    --shadow-glow: 0 0 40px hsl(217 88% 55% / 0.2);
+    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.5);
+    --neon-blue: 217 88% 55%;
+    --neon-cyan: 197 100% 44%;
+  }
+
+  .dark {
+    --background: 240 33% 6%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 217 88% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 33% 10%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 20% 15%;
+    --muted-foreground: 0 0% 80%;
+
+    --accent: 217 88% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 20% 20%;
+    --input: 240 20% 20%;
+    --ring: 217 88% 55%;
+
+    --sidebar-background: 0 0% 0%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 217 88% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 33% 10%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 240 20% 20%;
+    --sidebar-ring: 217 88% 55%;
+
+    --chat-bubble-bot: 240 33% 12%;
+    --chat-bubble-user: 217 88% 55%;
+    --success: 142 71% 45%;
+    --gradient-primary: linear-gradient(135deg, hsl(217 88% 55%), hsl(217 88% 65%));
+    --gradient-dark: linear-gradient(180deg, hsl(240 33% 6%), hsl(0 0% 0%));
+    --shadow-glow: 0 0 40px hsl(217 88% 55% / 0.2);
+    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.5);
+    --neon-blue: 217 88% 55%;
+    --neon-cyan: 197 100% 44%;
+  }
+
+  .light {
+    --background: 220 20% 97%;
+    --foreground: 240 33% 6%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 33% 6%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 33% 6%;
+
+    --primary: 217 100% 27%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 20% 92%;
+    --secondary-foreground: 240 33% 6%;
+
+    --muted: 240 10% 90%;
+    --muted-foreground: 240 10% 40%;
+
+    --accent: 197 100% 44%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 10% 85%;
+    --input: 240 10% 85%;
+    --ring: 217 100% 27%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 33% 6%;
+    --sidebar-primary: 217 100% 27%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 20% 92%;
+    --sidebar-accent-foreground: 240 33% 6%;
+    --sidebar-border: 240 10% 85%;
+    --sidebar-ring: 217 100% 27%;
+
+    --chat-bubble-bot: 240 20% 92%;
+    --chat-bubble-user: 217 100% 27%;
+    --success: 142 71% 40%;
+    --gradient-primary: linear-gradient(135deg, hsl(217 100% 27%), hsl(227 72% 25%));
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 100%), hsl(220 20% 97%));
+    --shadow-glow: 0 0 40px hsl(217 100% 27% / 0.15);
+    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.08);
+    --neon-blue: 217 100% 27%;
+    --neon-cyan: 197 100% 44%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+  }
+
+  .typing-dot {
+    @apply w-2 h-2 rounded-full bg-primary;
+    animation: typing 1.4s infinite ease-in-out both;
+  }
+
+  .typing-dot:nth-child(1) { animation-delay: 0s; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50;
+    box-shadow:
+      var(--shadow-card),
+      inset 0 1px 0 0 hsl(var(--foreground) / 0.03);
+  }
+
+  .glass-card:hover {
+    border-color: hsl(var(--primary) / 0.3);
+    box-shadow:
+      var(--shadow-card),
+      0 0 20px hsl(var(--primary) / 0.08),
+      inset 0 1px 0 0 hsl(var(--foreground) / 0.05);
+  }
+}
+
+/* Neon title glow animation */
+.neon-title {
+  animation: neon-pulse 3s ease-in-out infinite;
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 10px hsl(var(--neon-blue) / 0.3),
+      0 0 30px hsl(var(--neon-blue) / 0.1);
+  }
+  50% {
+    text-shadow:
+      0 0 15px hsl(var(--neon-cyan) / 0.4),
+      0 0 40px hsl(var(--neon-blue) / 0.2),
+      0 0 60px hsl(var(--neon-cyan) / 0.1);
+  }
+}
+
+/* Neon CTA button */
+.neon-button {
+  box-shadow:
+    0 0 15px hsl(var(--neon-blue) / 0.3),
+    inset 0 1px 0 hsl(var(--foreground) / 0.1);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.neon-button:hover {
+  box-shadow:
+    0 0 25px hsl(var(--neon-blue) / 0.5),
+    0 0 50px hsl(var(--neon-cyan) / 0.2),
+    inset 0 1px 0 hsl(var(--foreground) / 0.1);
+}
+
+@keyframes typing {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}

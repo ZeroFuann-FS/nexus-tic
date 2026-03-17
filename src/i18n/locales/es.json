@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "companies": "Empresas",
+    "diagnostic": "Diagnóstico"
+  },
+  "hero": {
+    "badge": "Sistema Inteligente de Orientación",
+    "title1": "Nexus",
+    "title2": "-TIC",
+    "subtitle": "Ingeniería en TICs · Residencias Profesionales",
+    "description": "Conectamos tu perfil con la empresa ideal para tus residencias profesionales, impulsado por inteligencia artificial y análisis inteligente de compatibilidad.",
+    "cta": "Iniciar Diagnóstico de Perfil"
+  },
+  "companies": {
+    "title": "Directorio de",
+    "titleHighlight": "Empresas",
+    "subtitle": "Explora {{count}} empresas con {{vacancies}} vacantes para residencias profesionales",
+    "searchPlaceholder": "Buscar por nombre, tecnología o descripción...",
+    "filters": "Filtros",
+    "area": "Área",
+    "modality": "Modalidad",
+    "clearFilters": "Limpiar filtros",
+    "companiesCount": "{{count}} empresa(s) · {{vacancies}} vacante(s)",
+    "noResults": "No se encontraron empresas.",
+    "noResultsHint": "Intenta con otros filtros o términos de búsqueda.",
+    "vacanciesAvailable": "{{count}} vacante(s) disponible(s)"
+  },
+  "companyDetail": {
+    "backToDirectory": "Volver al directorio",
+    "technologies": "Tecnologías",
+    "benefits": "Beneficios",
+    "contact": "Contacto",
+    "website": "Sitio web",
+    "networks": "Redes",
+    "vacanciesTitle": "Vacantes para Residencias ({{count}})",
+    "notFound": "Empresa no encontrada."
+  },
+  "chat": {
+    "online": "En línea",
+    "chooseVoice": "Elige tu voz preferida para el asistente:",
+    "continue": "Continuar",
+    "greeting": "¡Hola, futuro ingeniero! 🚀 Soy Nexus. Mi misión es conectarte con la empresa ideal para tus residencias. ¿Empezamos con tu nombre?",
+    "namePlaceholder": "Escribe tu nombre...",
+    "niceToMeet": "Mucho gusto, {{name}}. Para conocerte mejor, dime: ¿qué actividades te llaman más la atención? Selecciona todas las que te gusten 👇",
+    "selectInterests": "Selecciona las que te interesen ({{count}} seleccionadas):",
+    "continueWith": "Continuar con {{count}} interés(es)",
+    "areaDetected": "Según tus intereses, tu perfil se alinea con **{{area}}** 🎯. ¿Es correcto o prefieres otra área?",
+    "confirmArea": "Confirma o elige otra área:",
+    "areaConfirm": "Sí, {{area}} está perfecto",
+    "greatChoice": "¡Excelente elección! Selecciona las tecnologías que ya dominas o estás aprendiendo:",
+    "selectTechs": "Selecciona tus tecnologías ({{count}} seleccionadas):",
+    "continueTechs": "Continuar con {{count}} tecnología(s)",
+    "vibeQuestion": "¿Qué tipo de 'vibe' buscas para tu residencia?",
+    "chooseModality": "Elige tu modalidad preferida:",
+    "processing": "Procesando vacantes... 🔍",
+    "resultsFound": "Basado en tu perfil, he encontrado estas opciones que hacen 'match' con tu talento. ¡Echa un vistazo! ✨",
+    "analyzing": "Analizando tu perfil...",
+    "voiceOn": "Voz activada",
+    "voiceOff": "Voz desactivada"
+  },
+  "results": {
+    "newDiagnostic": "Nuevo diagnóstico",
+    "companiesFound": "{{count}} empresas encontradas",
+    "downloadPDF": "Descargar PDF",
+    "resultsFor": "Resultados para",
+    "area": "Área: {{area}} · Modalidad: {{modality}}",
+    "noMatch": "No se encontraron coincidencias exactas. Intenta con un perfil diferente.",
+    "restart": "Reiniciar diagnóstico",
+    "compatibility": "compatibilidad"
+  },
+  "theme": {
+    "toggle": "Cambiar tema"
+  }
+}

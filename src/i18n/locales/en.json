@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "home": "Home",
+    "companies": "Companies",
+    "diagnostic": "Diagnostic"
+  },
+  "hero": {
+    "badge": "Intelligent Guidance System",
+    "title1": "Nexus",
+    "title2": "-TIC",
+    "subtitle": "ICT Engineering · Professional Internships",
+    "description": "We connect your profile with the ideal company for your professional internships, powered by artificial intelligence and smart compatibility analysis.",
+    "cta": "Start Profile Diagnostic"
+  },
+  "companies": {
+    "title": "Company",
+    "titleHighlight": "Directory",
+    "subtitle": "Explore {{count}} companies with {{vacancies}} vacancies for professional internships",
+    "searchPlaceholder": "Search by name, technology or description...",
+    "filters": "Filters",
+    "area": "Area",
+    "modality": "Modality",
+    "clearFilters": "Clear filters",
+    "companiesCount": "{{count}} company(ies) · {{vacancies}} vacancy(ies)",
+    "noResults": "No companies found.",
+    "noResultsHint": "Try different filters or search terms.",
+    "vacanciesAvailable": "{{count}} vacancy(ies) available"
+  },
+  "companyDetail": {
+    "backToDirectory": "Back to directory",
+    "technologies": "Technologies",
+    "benefits": "Benefits",
+    "contact": "Contact",
+    "website": "Website",
+    "networks": "Networks",
+    "vacanciesTitle": "Internship Vacancies ({{count}})",
+    "notFound": "Company not found."
+  },
+  "chat": {
+    "online": "Online",
+    "chooseVoice": "Choose your preferred voice for the assistant:",
+    "continue": "Continue",
+    "greeting": "Hello, future engineer! 🚀 I'm Nexus. My mission is to connect you with the ideal company for your internship. Shall we start with your name?",
+    "namePlaceholder": "Type your name...",
+    "niceToMeet": "Nice to meet you, {{name}}. To get to know you better, tell me: which activities catch your attention? Select all that you like 👇",
+    "selectInterests": "Select the ones that interest you ({{count}} selected):",
+    "continueWith": "Continue with {{count}} interest(s)",
+    "areaDetected": "Based on your interests, your profile aligns with **{{area}}** 🎯. Is that correct or do you prefer another area?",
+    "confirmArea": "Confirm or choose another area:",
+    "areaConfirm": "Yes, {{area}} is perfect",
+    "greatChoice": "Excellent choice! Select the technologies you already master or are learning:",
+    "selectTechs": "Select your technologies ({{count}} selected):",
+    "continueTechs": "Continue with {{count}} technology(ies)",
+    "vibeQuestion": "What kind of vibe are you looking for in your internship?",
+    "chooseModality": "Choose your preferred modality:",
+    "processing": "Processing vacancies... 🔍",
+    "resultsFound": "Based on your profile, I've found these options that match your talent. Take a look! ✨",
+    "analyzing": "Analyzing your profile...",
+    "voiceOn": "Voice enabled",
+    "voiceOff": "Voice disabled"
+  },
+  "results": {
+    "newDiagnostic": "New diagnostic",
+    "companiesFound": "{{count}} companies found",
+    "downloadPDF": "Download PDF",
+    "resultsFor": "Results for",
+    "area": "Area: {{area}} · Modality: {{modality}}",
+    "noMatch": "No exact matches found. Try a different profile.",
+    "restart": "Restart diagnostic",
+    "compatibility": "compatibility"
+  },
+  "theme": {
+    "toggle": "Toggle theme"
+  }
+}
