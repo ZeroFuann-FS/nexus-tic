@@ -1,9 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, MapPin, Mail, Phone, Globe, Linkedin, Github, Briefcase, CheckCircle2, Building2, Clock } from "lucide-react";
+import { ArrowLeft, MapPin, Mail, Briefcase, CheckCircle2, Building2, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { companies } from "@/data/companies";
+import Monograma from "@/components/Monograma";
+import AvisoEjemplo from "@/components/AvisoEjemplo";
+import { sinEmoji } from "@/lib/utils";
 
 const CompanyDetail = () => {
   const { t } = useTranslation();
@@ -27,15 +30,16 @@ const CompanyDetail = () => {
         <ArrowLeft className="w-4 h-4" /> {t("companyDetail.backToDirectory")}
       </Link>
 
+      <AvisoEjemplo className="mb-5" />
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-2xl overflow-hidden mb-6 h-48 sm:h-64">
         <img src={company.cover} alt={company.name} className="w-full h-full object-cover" />
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
         <div className="flex items-center gap-4 mb-3">
-          <span className="text-5xl">{company.logo}</span>
+          <Monograma nombre={company.name} size={56} />
           <div>
-            <h1 className="text-2xl sm:text-3xl font-black text-foreground">{company.name}</h1>
+            <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-foreground">{company.name}</h1>
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <MapPin className="w-4 h-4" />
               {company.location}
@@ -47,13 +51,13 @@ const CompanyDetail = () => {
             <span key={a} className="text-xs bg-primary/15 text-primary border border-primary/20 rounded-full px-3 py-1 font-medium">{a}</span>
           ))}
           {company.modality.map((m) => (
-            <span key={m} className="text-xs bg-muted text-muted-foreground rounded-full px-3 py-1">{m}</span>
+            <span key={m} className="text-xs bg-muted text-muted-foreground rounded-full px-3 py-1">{sinEmoji(m)}</span>
           ))}
         </div>
         <p className="text-foreground leading-relaxed">{company.longDescription}</p>
       </motion.div>
 
-      <div className="grid gap-6 sm:grid-cols-2 mb-8">
+      <div className="grid gap-6 sm:grid-cols-3 mb-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
           className="glass-card rounded-2xl p-5">
           <h2 className="font-semibold text-foreground mb-3 flex items-center gap-2">
@@ -85,37 +89,13 @@ const CompanyDetail = () => {
           <h2 className="font-semibold text-foreground mb-3 flex items-center gap-2">
             <Mail className="w-4 h-4 text-primary" /> {t("companyDetail.contact")}
           </h2>
-          <div className="space-y-2 text-sm">
-            <a href={`mailto:${company.contact.email}`} className="flex items-center gap-2 text-primary hover:underline">
-              <Mail className="w-3 h-3" /> {company.contact.email}
-            </a>
-            {company.contact.phone && (
-              <div className="flex items-center gap-2 text-muted-foreground"><Phone className="w-3 h-3" /> {company.contact.phone}</div>
-            )}
-            {company.contact.website && (
-              <a href={company.contact.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-primary hover:underline">
-                <Globe className="w-3 h-3" /> {t("companyDetail.website")}
-              </a>
-            )}
+          {/* Sin enlaces: el correo es de ejemplo y no debe abrirse ni copiarse como si fuera real */}
+          <div className="space-y-1.5 text-sm">
+            <p className="flex items-center gap-2 text-foreground"><Mail className="w-3.5 h-3.5 text-muted-foreground" /> {company.contact.email}</p>
+            <p className="text-xs text-muted-foreground">{t("companyDetail.sampleContact")}</p>
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
-          className="glass-card rounded-2xl p-5">
-          <h2 className="font-semibold text-foreground mb-3">{t("companyDetail.networks")}</h2>
-          <div className="space-y-2 text-sm">
-            {company.social.linkedin && (
-              <a href={company.social.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-primary hover:underline">
-                <Linkedin className="w-4 h-4" /> LinkedIn
-              </a>
-            )}
-            {company.social.github && (
-              <a href={company.social.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-primary hover:underline">
-                <Github className="w-4 h-4" /> GitHub
-              </a>
-            )}
-          </div>
-        </motion.div>
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>

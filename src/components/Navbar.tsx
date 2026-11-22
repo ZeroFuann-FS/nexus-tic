@@ -1,46 +1,39 @@
 import { Link, useLocation } from "react-router-dom";
-import { Bot, Building2, Home, Menu, X, MessageSquare } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { useTranslation } from "react-i18next";
+import Marca from "./Marca";
 
 const Navbar = () => {
   const location = useLocation();
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [abierto, setAbierto] = useState(false);
   const { t } = useTranslation();
 
   const links = [
-    { to: "/", label: t("nav.home"), icon: Home },
-    { to: "/empresas", label: t("nav.companies"), icon: Building2 },
-    { to: "/diagnostico", label: t("nav.diagnostic"), icon: MessageSquare },
+    { to: "/", label: t("nav.home") },
+    { to: "/empresas", label: t("nav.companies") },
+    { to: "/diagnostico", label: t("nav.diagnostic") },
   ];
+  const activo = (to: string) => (to === "/" ? location.pathname === "/" : location.pathname.startsWith(to));
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 h-16">
-        <Link to="/" className="flex items-center gap-2 font-black text-xl">
-          <Bot className="w-6 h-6 text-primary" />
-          <span className="gradient-text">Nexus</span>
-          <span className="text-foreground">-TIC</span>
+    <nav className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+        <Link to="/" className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight" aria-label="Nexus-TIC, inicio">
+          <Marca />
+          <span>Nexus<span className="text-primary">-TIC</span></span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-1">
-          {links.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors",
-                location.pathname === link.to
-                  ? "bg-primary/15 text-primary"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-              )}
-            >
-              <link.icon className="w-4 h-4" />
-              {link.label}
+        <div className="hidden items-center gap-1 md:flex">
+          {links.map((l) => (
+            <Link key={l.to} to={l.to} aria-current={activo(l.to) ? "page" : undefined}
+              className={cn("rounded-lg px-3.5 py-2 text-sm font-medium transition-colors",
+                activo(l.to) ? "text-foreground underline decoration-primary decoration-2 underline-offset-[10px]" : "text-muted-foreground hover:text-foreground")}>
+              {l.label}
             </Link>
           ))}
         </div>
@@ -48,33 +41,18 @@ const Navbar = () => {
         <div className="flex items-center gap-1">
           <LanguageSwitcher />
           <ThemeToggle />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setAbierto(!abierto)} aria-label="Menú" aria-expanded={abierto}>
+            {abierto ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
       </div>
 
-      {mobileOpen && (
-        <div className="md:hidden border-t border-border bg-background px-4 py-3 space-y-1">
-          {links.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={() => setMobileOpen(false)}
-              className={cn(
-                "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
-                location.pathname === link.to
-                  ? "bg-primary/15 text-primary"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-              )}
-            >
-              <link.icon className="w-4 h-4" />
-              {link.label}
+      {abierto && (
+        <div className="space-y-1 border-t border-border bg-background px-4 py-3 md:hidden">
+          {links.map((l) => (
+            <Link key={l.to} to={l.to} onClick={() => setAbierto(false)} aria-current={activo(l.to) ? "page" : undefined}
+              className={cn("block rounded-lg px-4 py-3 text-base font-medium", activo(l.to) ? "bg-secondary text-foreground" : "text-muted-foreground")}>
+              {l.label}
             </Link>
           ))}
         </div>

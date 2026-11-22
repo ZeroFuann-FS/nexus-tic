@@ -1,27 +1,25 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/hooks/use-theme";
 import Navbar from "@/components/Navbar";
-import FloatingChatButton from "@/components/FloatingChatButton";
 import Index from "./pages/Index";
-import Companies from "./pages/Companies";
-import CompanyDetail from "./pages/CompanyDetail";
-import Diagnostic from "./pages/Diagnostic";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+// El inicio carga primero; el resto se descarga al entrar
+const Companies = lazy(() => import("./pages/Companies"));
+const CompanyDetail = lazy(() => import("./pages/CompanyDetail"));
+const Diagnostic = lazy(() => import("./pages/Diagnostic"));
+
 
 function AppContent() {
-  const location = useLocation();
-  const showNavbar = location.pathname === "/diagnostico";
-  const showFloating = location.pathname !== "/diagnostico";
 
   return (
     <>
-      {showNavbar && <Navbar />}
+      <Navbar />
+      <Suspense fallback={<div className="min-h-[60vh]" />}>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/empresas" element={<Companies />} />
@@ -29,13 +27,12 @@ function AppContent() {
         <Route path="/diagnostico" element={<Diagnostic />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {showFloating && <FloatingChatButton />}
+      </Suspense>
     </>
   );
 }
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
     <ThemeProvider>
       <TooltipProvider>
         <Toaster />
@@ -45,7 +42,6 @@ const App = () => (
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
-  </QueryClientProvider>
 );
 
 export default App;

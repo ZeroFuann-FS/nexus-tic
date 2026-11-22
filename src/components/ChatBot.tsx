@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Bot, User, ArrowLeft, Volume1, Volume2, VolumeX } from "lucide-react";
+import { Send, User, ArrowLeft, Volume1, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import TypingIndicator from "./TypingIndicator";
 import ChatProgressBar from "./ChatProgressBar";
-import PlexusBackground from "./PlexusBackground";
+import Marca from "./Marca";
+import { sinEmoji } from "@/lib/utils";
 import AudioIndicator from "./AudioIndicator";
 import { useTTS } from "@/hooks/use-tts";
 import { useSound } from "@/hooks/use-sound";
@@ -34,18 +35,18 @@ export interface UserProfile {
 const AREAS = ["Dev Web", "Dev Mobile", "Ciberseguridad", "Redes", "IA"];
 
 const INTERESTS = [
-  { label: "Diseñar interfaces en Figma 🎨", area: "Dev Web" },
-  { label: "Crear páginas y apps web 🌐", area: "Dev Web" },
-  { label: "Trabajar con bases de datos 🗄️", area: "Dev Web" },
-  { label: "Desarrollar apps móviles 📱", area: "Dev Mobile" },
-  { label: "Programar con Arduino/IoT 🤖", area: "Dev Mobile" },
-  { label: "Hacking ético y pentesting 🔓", area: "Ciberseguridad" },
-  { label: "Proteger sistemas y datos 🛡️", area: "Ciberseguridad" },
-  { label: "Configurar routers y redes 🔌", area: "Redes" },
-  { label: "Administrar servidores Linux 🖥️", area: "Redes" },
-  { label: "Infraestructura en la nube ☁️", area: "Redes" },
-  { label: "Machine Learning e IA 🧠", area: "IA" },
-  { label: "Analizar datos con Python 📊", area: "IA" },
+  { label: "Diseñar interfaces en Figma", area: "Dev Web" },
+  { label: "Crear páginas y apps web", area: "Dev Web" },
+  { label: "Trabajar con bases de datos", area: "Dev Web" },
+  { label: "Desarrollar apps móviles", area: "Dev Mobile" },
+  { label: "Programar con Arduino/IoT", area: "Dev Mobile" },
+  { label: "Hacking ético y pentesting", area: "Ciberseguridad" },
+  { label: "Proteger sistemas y datos", area: "Ciberseguridad" },
+  { label: "Configurar routers y redes", area: "Redes" },
+  { label: "Administrar servidores Linux", area: "Redes" },
+  { label: "Infraestructura en la nube", area: "Redes" },
+  { label: "Machine Learning e IA", area: "IA" },
+  { label: "Analizar datos con Python", area: "IA" },
 ];
 
 function detectAreaFromInterests(selected: string[]): string {
@@ -186,7 +187,7 @@ const ChatBot = ({ onComplete, onBack, tts }: ChatBotProps) => {
   };
 
   const handleModalitySelect = (modality: string) => {
-    addUserMessage(modality);
+    addUserMessage(sinEmoji(modality));
     const finalProfile = { ...profile, modality };
     setProfile(finalProfile);
     setStep("processing");
@@ -201,30 +202,23 @@ const ChatBot = ({ onComplete, onBack, tts }: ChatBotProps) => {
 
   return (
     <div className="lg:flex min-h-screen bg-background relative">
-      {/* Plexus background */}
-      <PlexusBackground />
 
       {/* Left Column (Header & Progress) */}
       <div className="lg:w-1/3 lg:border-r border-border flex flex-col">
-        <div className="border-b border-border bg-secondary/30 backdrop-blur-sm sticky top-0 z-10 lg:static">
+        <div className="border-b border-border bg-secondary/30 backdrop-blur-sm sticky top-16 z-10 lg:static">
           <div className="flex items-center gap-3 px-4 py-3">
             {onBack && (
               <Button variant="ghost" size="icon" onClick={onBack} className="lg:hidden">
                 <ArrowLeft className="w-5 h-5" />
               </Button>
             )}
-            <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center">
-              <Bot className="w-5 h-5 text-primary" />
-            </div>
+            <Marca size={36} />
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <h2 className="font-semibold text-sm text-foreground">Nexus AI</h2>
+                <h2 className="font-semibold text-sm text-foreground">Nexus</h2>
                 <AudioIndicator active={tts.speaking} />
               </div>
-              <span className="text-xs text-success flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-success inline-block" />
-                {t("chat.online")}
-              </span>
+              <span className="text-xs text-muted-foreground">{t("chat.online")}</span>
             </div>
             <div className="flex items-center gap-2">
               <Popover>
@@ -233,6 +227,7 @@ const ChatBot = ({ onComplete, onBack, tts }: ChatBotProps) => {
                     variant="ghost"
                     size="sm"
                     className={`h-8 px-2 ${tts.volume > 0 ? "text-primary" : "text-muted-foreground"}`}
+                    aria-label={tts.volume > 0 ? t("chat.voiceOn") : t("chat.voiceOff")}
                   >
                     {tts.volume === 0 ? <VolumeX className="w-4 h-4" /> : tts.volume < 0.5 ? <Volume1 className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                   </Button>
@@ -251,7 +246,7 @@ const ChatBot = ({ onComplete, onBack, tts }: ChatBotProps) => {
           <ChatProgressBar current={Math.min(stepNumber[step], totalSteps)} total={totalSteps} />
         </div>
         <div className="hidden lg:block p-4 text-sm text-muted-foreground">
-          <p>Este es un chat de diagnóstico para ayudarte a encontrar tu camino en el mundo de la tecnología. Responde a las preguntas para obtener un perfil de carrera personalizado.</p>
+          <p>Responde cinco preguntas sobre tus intereses y tecnologías. Al final verás las empresas ordenadas por compatibilidad con tu perfil.</p>
         </div>
       </div>
 
@@ -269,9 +264,7 @@ const ChatBot = ({ onComplete, onBack, tts }: ChatBotProps) => {
                 className={`flex gap-2 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 {msg.role === "bot" && (
-                  <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
-                    <Bot className="w-4 h-4 text-primary" />
-                  </div>
+                  <Marca size={28} className="mt-1" />
                 )}
                 <div
                   className={`max-w-[80%] sm:max-w-[70%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
@@ -297,9 +290,7 @@ const ChatBot = ({ onComplete, onBack, tts }: ChatBotProps) => {
               animate={{ opacity: 1 }}
               className="flex gap-2"
             >
-              <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
-                <Bot className="w-4 h-4 text-primary" />
-              </div>
+              <Marca size={28} className="mt-1" />
               <TypingIndicator />
             </motion.div>
           )}
@@ -345,7 +336,7 @@ const ChatBot = ({ onComplete, onBack, tts }: ChatBotProps) => {
                 ))}
               </div>
               {selectedInterests.length > 0 && (
-                <Button variant="hero" size="default" onClick={handleInterestsSubmit} className="w-full">
+                <Button variant="default" size="lg" onClick={handleInterestsSubmit} className="w-full">
                   {t("chat.continueWith", { count: selectedInterests.length })}
                 </Button>
               )}
@@ -386,7 +377,7 @@ const ChatBot = ({ onComplete, onBack, tts }: ChatBotProps) => {
                 ))}
               </div>
               {selectedTechs.length > 0 && (
-                <Button variant="hero" size="default" onClick={handleTechSubmit} className="w-full">
+                <Button variant="default" size="lg" onClick={handleTechSubmit} className="w-full">
                   {t("chat.continueTechs", { count: selectedTechs.length })}
                 </Button>
               )}
@@ -404,7 +395,7 @@ const ChatBot = ({ onComplete, onBack, tts }: ChatBotProps) => {
                     size="option"
                     onClick={() => handleModalitySelect(mod)}
                   >
-                    {mod}
+                    {sinEmoji(mod)}
                   </Button>
                 ))}
               </div>

@@ -5,8 +5,10 @@ import { Search, MapPin, Briefcase, Filter, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { companies } from "@/data/companies";
 import { Button } from "@/components/ui/button";
+import Monograma from "@/components/Monograma";
+import AvisoEjemplo from "@/components/AvisoEjemplo";
+import { sinEmoji } from "@/lib/utils";
 
-import Navbar from "@/components/Navbar";
 
 const ALL_AREAS = ["Dev Web", "Dev Mobile", "Ciberseguridad", "Redes", "IA"];
 const ALL_MODALITIES = ["Home Office 🏠", "Presencial en la región 📍", "Híbrido 💻"];
@@ -36,16 +38,16 @@ const Companies = () => {
 
   return (
     <>
-      <Navbar />
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-black text-foreground mb-2">
-            {t("companies.title")} <span className="gradient-text">{t("companies.titleHighlight")}</span>
+          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-foreground mb-2">
+            {t("companies.title")} {t("companies.titleHighlight").toLowerCase()}
           </h1>
           <p className="text-muted-foreground">
             {t("companies.subtitle", { count: companies.length, vacancies: companies.reduce((s, c) => s + c.vacancies.length, 0) })}
           </p>
+          <AvisoEjemplo className="mt-5" />
         </motion.div>
 
         {/* Search & Filters */}
@@ -103,7 +105,7 @@ const Companies = () => {
                       size="chip"
                       onClick={() => setSelectedModality(selectedModality === mod ? null : mod)}
                     >
-                      {mod}
+                      {sinEmoji(mod)}
                     </Button>
                   ))}
                 </div>
@@ -121,7 +123,7 @@ const Companies = () => {
             </motion.div>
           )}
 
-          <p className="text-sm text-muted-foreground">
+          <p className="num text-sm text-muted-foreground" aria-live="polite">
             {filtered.length} empresa{filtered.length !== 1 ? "s" : ""} · {totalVacancies} vacante{totalVacancies !== 1 ? "s" : ""}
           </p>
         </div>
@@ -144,13 +146,13 @@ const Companies = () => {
                   <img
                     src={company.cover}
                     alt={company.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     loading="lazy"
                   />
                 </div>
                 <div className="p-5">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-2xl">{company.logo}</span>
+                    <Monograma nombre={company.name} />
                     <div>
                       <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
                         {company.name}

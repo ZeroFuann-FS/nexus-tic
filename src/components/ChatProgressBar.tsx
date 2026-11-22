@@ -12,7 +12,7 @@ const ChatProgressBar = ({ current, total }: ChatProgressBarProps) => {
     <div className="px-4 pt-2 pb-3 bg-secondary/50 border-b border-border">
       <div className="flex justify-between items-center mb-1">
         <span className="text-xs font-semibold text-primary">Nexus AI</span>
-        <span className="text-xs text-muted-foreground font-mono">
+        <span className="num text-xs text-muted-foreground">
           Progreso: {current}/{total}
         </span>
       </div>

@@ -5,12 +5,23 @@
     "diagnostic": "Diagnóstico"
   },
   "hero": {
-    "badge": "Sistema Inteligente de Orientación",
-    "title1": "Nexus",
-    "title2": "-TIC",
-    "subtitle": "Ingeniería en TICs · Residencias Profesionales",
-    "description": "Conectamos tu perfil con la empresa ideal para tus residencias profesionales, impulsado por inteligencia artificial y análisis inteligente de compatibilidad.",
-    "cta": "Iniciar Diagnóstico de Perfil"
+    "label": "Proyecto escolar · Ingeniería en TICs, ITSM",
+    "title": "Encuentra la empresa ideal para tu residencia profesional.",
+    "description": "Responde cinco preguntas sobre lo que te gusta y las tecnologías que manejas. Nexus-TIC compara tu perfil con cada empresa y te muestra qué tan compatibles son, con sus vacantes.",
+    "cta": "Empezar diagnóstico",
+    "secondary": "Ver empresas",
+    "time": "Toma unos 3 minutos · con voz o sin voz",
+    "how": "Cómo funciona",
+    "step1": "Cuéntanos qué te gusta",
+    "step1d": "Diseño, redes, seguridad, datos, apps… eliges las actividades que te llaman.",
+    "step2": "Elige tus tecnologías",
+    "step2d": "Las que ya dominas o estás aprendiendo: React, Python, Linux, Docker y más.",
+    "step3": "Recibe tus empresas",
+    "step3d": "Ordenadas por compatibilidad, con sus vacantes y una ficha en PDF para llevar a tu asesor.",
+    "demoTitle": "Así se ven tus resultados",
+    "demoMatch": "compatibilidad",
+    "demoCommon": "En común contigo",
+    "sample": "Las empresas son de ejemplo para mostrar cómo funciona."
   },
   "companies": {
     "title": "Directorio de",
@@ -24,7 +35,8 @@
     "companiesCount": "{{count}} empresa(s) · {{vacancies}} vacante(s)",
     "noResults": "No se encontraron empresas.",
     "noResultsHint": "Intenta con otros filtros o términos de búsqueda.",
-    "vacanciesAvailable": "{{count}} vacante(s) disponible(s)"
+    "vacanciesAvailable": "{{count}} vacante(s) disponible(s)",
+    "sampleNotice": "Empresas de ejemplo: los nombres, contactos y vacantes son ficticios y sirven para mostrar cómo funciona Nexus-TIC."
   },
   "companyDetail": {
     "backToDirectory": "Volver al directorio",
@@ -34,27 +46,28 @@
     "website": "Sitio web",
     "networks": "Redes",
     "vacanciesTitle": "Vacantes para Residencias ({{count}})",
-    "notFound": "Empresa no encontrada."
+    "notFound": "Empresa no encontrada.",
+    "sampleContact": "Dato de ejemplo (ficticio)"
   },
   "chat": {
-    "online": "En línea",
+    "online": "Asistente de orientación",
     "chooseVoice": "Elige tu voz preferida para el asistente:",
     "continue": "Continuar",
-    "greeting": "¡Hola, futuro ingeniero! 🚀 Soy Nexus. Mi misión es conectarte con la empresa ideal para tus residencias. ¿Empezamos con tu nombre?",
+    "greeting": "¡Hola! Soy Nexus, tu asistente de orientación. Te ayudo a encontrar la empresa ideal para tus residencias. ¿Empezamos con tu nombre?",
     "namePlaceholder": "Escribe tu nombre...",
-    "niceToMeet": "Mucho gusto, {{name}}. Para conocerte mejor, dime: ¿qué actividades te llaman más la atención? Selecciona todas las que te gusten 👇",
+    "niceToMeet": "Mucho gusto, {{name}}. Para conocerte mejor: ¿qué actividades te llaman más la atención? Elige todas las que te gusten.",
     "selectInterests": "Selecciona las que te interesen ({{count}} seleccionadas):",
     "continueWith": "Continuar con {{count}} interés(es)",
-    "areaDetected": "Según tus intereses, tu perfil se alinea con **{{area}}** 🎯. ¿Es correcto o prefieres otra área?",
+    "areaDetected": "Según tus intereses, tu perfil se alinea con {{area}}. ¿Es correcto o prefieres otra área?",
     "confirmArea": "Confirma o elige otra área:",
     "areaConfirm": "Sí, {{area}} está perfecto",
     "greatChoice": "¡Excelente elección! Selecciona las tecnologías que ya dominas o estás aprendiendo:",
     "selectTechs": "Selecciona tus tecnologías ({{count}} seleccionadas):",
     "continueTechs": "Continuar con {{count}} tecnología(s)",
-    "vibeQuestion": "¿Qué tipo de 'vibe' buscas para tu residencia?",
+    "vibeQuestion": "¿Qué modalidad prefieres para tu residencia?",
     "chooseModality": "Elige tu modalidad preferida:",
-    "processing": "Procesando vacantes... 🔍",
-    "resultsFound": "Basado en tu perfil, he encontrado estas opciones que hacen 'match' con tu talento. ¡Echa un vistazo! ✨",
+    "processing": "Comparando tu perfil con las empresas…",
+    "resultsFound": "Listo. Estas son las empresas que mejor encajan contigo.",
     "analyzing": "Analizando tu perfil...",
     "voiceOn": "Voz activada",
     "voiceOff": "Voz desactivada"
@@ -71,5 +84,21 @@
   },
   "theme": {
     "toggle": "Cambiar tema"
+  },
+  "notFound": {
+    "title": "Esta página no existe",
+    "text": "Puede que el enlace esté mal escrito o que la página se haya movido.",
+    "home": "Ir al inicio"
+  },
+  "voice": {
+    "title": "¿Quieres que el asistente te hable?",
+    "description": "Puedes leer las preguntas en pantalla o escucharlas en voz alta. Lo puedes cambiar después con el botón de volumen.",
+    "none": "Sin voz",
+    "noneD": "Solo texto",
+    "female": "Voz femenina",
+    "male": "Voz masculina",
+    "voiceD": "Lee las preguntas en voz alta",
+    "start": "Empezar",
+    "cancel": "Volver"
   }
 }

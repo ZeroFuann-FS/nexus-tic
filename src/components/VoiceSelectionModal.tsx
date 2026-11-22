@@ -1,95 +1,48 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Volume2, VolumeX } from "lucide-react";
 import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+  AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-interface VoiceSelectionModalProps {
-  isOpen: boolean;
-  onContinue: (voice: string) => void;
-  onCancel: () => void;
-}
+export type OpcionVoz = "none" | "female" | "male";
 
-const formingAnimation = {
-  hidden: {
-    clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)',
-    transition: { duration: 0.4 }
-  },
-  visible: {
-    clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-    transition: { duration: 0.4, staggerChildren: 0.2 }
-  },
-  exit: {
-    clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
-    transition: { duration: 0.4 }
-  }
-};
+interface Props { isOpen: boolean; onContinue: (voz: OpcionVoz) => void; onCancel: () => void }
 
-const contentAnimation = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { delay: 0.2 } },
-};
-
-export const VoiceSelectionModal: React.FC<VoiceSelectionModalProps> = ({ isOpen, onContinue, onCancel }) => {
-  const [selectedVoice, setSelectedVoice] = useState<string | null>(null);
-
-  const handleContinue = () => {
-    if (selectedVoice) {
-      onContinue(selectedVoice);
-    }
-  };
-
+/** Antes de empezar: con voz (femenina o masculina) o solo texto. "Sin voz" viene elegida para no sorprender con audio. */
+export const VoiceSelectionModal = ({ isOpen, onContinue, onCancel }: Props) => {
+  const { t } = useTranslation();
+  const [voz, setVoz] = useState<OpcionVoz>("none");
+  const opciones: { id: OpcionVoz; t: string; d: string; Icono: typeof Volume2 }[] = [
+    { id: "none", t: t("voice.none"), d: t("voice.noneD"), Icono: VolumeX },
+    { id: "female", t: t("voice.female"), d: t("voice.voiceD"), Icono: Volume2 },
+    { id: "male", t: t("voice.male"), d: t("voice.voiceD"), Icono: Volume2 },
+  ];
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <AlertDialog open={isOpen}>
-          <motion.div
-            variants={formingAnimation}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <AlertDialogContent>
-              <motion.div variants={contentAnimation}>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Elige tu voz preferida para el asistente</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    Selecciona una de las voces para continuar con el diagnóstico.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <div className="flex justify-center gap-4 my-4">
-                  <Button
-                    variant={selectedVoice === 'female' ? 'default' : 'outline'}
-                    onClick={() => setSelectedVoice('female')}
-                  >
-                    Mujer
-                  </Button>
-                  <Button
-                    variant={selectedVoice === 'male' ? 'default' : 'outline'}
-                    onClick={() => setSelectedVoice('male')}
-                  >
-                    Hombre
-                  </Button>
-                </div>
-                <AlertDialogFooter>
-                  <AlertDialogCancel onClick={onCancel}>Cancelar</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleContinue} disabled={!selectedVoice}>
-                    Continuar
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </motion.div>
-            </AlertDialogContent>
-          </motion.div>
-        </AlertDialog>
-      )}
-    </AnimatePresence>
+    <AlertDialog open={isOpen}>
+      <AlertDialogContent className="max-w-md rounded-2xl">
+        <AlertDialogHeader>
+          <AlertDialogTitle className="font-display text-xl">{t("voice.title")}</AlertDialogTitle>
+          <AlertDialogDescription>{t("voice.description")}</AlertDialogDescription>
+        </AlertDialogHeader>
+        <div role="radiogroup" aria-label={t("voice.title")} className="my-2 grid gap-2">
+          {opciones.map(({ id, t: titulo, d, Icono }) => (
+            <button key={id} type="button" role="radio" aria-checked={voz === id} onClick={() => setVoz(id)}
+              className={cn("flex items-center gap-3 rounded-xl border p-3.5 text-left transition",
+                voz === id ? "border-primary bg-primary/10" : "border-border hover:border-primary/50")}>
+              <Icono className={cn("h-5 w-5 shrink-0", voz === id ? "text-primary" : "text-muted-foreground")} />
+              <span className="min-w-0 flex-1"><span className="block font-semibold">{titulo}</span><span className="block text-sm text-muted-foreground">{d}</span></span>
+              <span className={cn("h-4 w-4 shrink-0 rounded-full border-2", voz === id ? "border-primary bg-primary shadow-[inset_0_0_0_2px_hsl(var(--card))]" : "border-border")} />
+            </button>
+          ))}
+        </div>
+        <AlertDialogFooter className="gap-2 sm:gap-0">
+          <Button variant="ghost" onClick={onCancel}>{t("voice.cancel")}</Button>
+          <Button size="lg" onClick={() => onContinue(voz)}>{t("voice.start")}</Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };

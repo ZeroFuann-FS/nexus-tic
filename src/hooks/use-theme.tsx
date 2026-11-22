@@ -14,18 +14,25 @@ const ThemeContext = createContext<ThemeContextType>({
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
-    const stored = localStorage.getItem("nexus-theme");
-    return (stored === "light" || stored === "dark") ? stored : "dark";
+    // Lo que eligió la persona; si nunca eligió, lo que tenga su teléfono o computadora
+    let stored: string | null = null;
+    try { stored = localStorage.getItem("nexus-theme"); } catch { /* sin almacenamiento */ }
+    if (stored === "light" || stored === "dark") return stored;
+    return matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   });
 
   useEffect(() => {
     const root = document.documentElement;
     root.classList.remove("light", "dark");
     root.classList.add(theme);
-    localStorage.setItem("nexus-theme", theme);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0f1320" : "#f5f7fa");
   }, [theme]);
 
-  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  const toggleTheme = () => setTheme((t) => {
+    const n = t === "dark" ? "light" : "dark";
+    try { localStorage.setItem("nexus-theme", n); } catch { /* sin almacenamiento */ }
+    return n;
+  });
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

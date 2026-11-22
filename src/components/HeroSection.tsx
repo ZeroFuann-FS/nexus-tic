@@ -1,105 +1,86 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Cpu, Sparkles } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import BrainNetwork from "./BrainNetwork";
 
-interface HeroSectionProps {
-  onStart: () => void;
+/** Una tarjeta de resultado real (misma forma que en el diagnóstico) para mostrar qué obtienes. */
+function VistaPrevia() {
+  const { t } = useTranslation();
+  const reducir = useReducedMotion();
+  const filas = [
+    { ini: "CS", nombre: "CyberShield MX", lugar: "Monterrey, NL", pct: 86, comun: ["Python", "Linux", "Docker"] },
+    { ini: "DN", nombre: "DataNova AI", lugar: "Guadalajara, JAL", pct: 64, comun: ["Python", "SQL"] },
+    { ini: "CN", nombre: "CloudNet Solutions", lugar: "Querétaro, QRO", pct: 41, comun: ["Linux"] },
+  ];
+  return (
+    <div className="min-w-0 rounded-2xl border border-border bg-card p-4 sm:p-5">
+      <p className="text-sm font-semibold">{t("hero.demoTitle")}</p>
+      <ul className="mt-3 divide-y divide-border">
+        {filas.map((f, i) => (
+          <li key={f.nombre} className="flex items-center gap-3 py-3">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-secondary font-display text-sm font-bold text-primary">{f.ini}</span>
+            <div className="min-w-0 flex-1">
+              <p className="truncate font-semibold">{f.nombre}</p>
+              <p className="flex items-center gap-1 text-xs text-muted-foreground"><MapPin className="h-3 w-3" />{f.lugar}</p>
+              <p className="mt-1 truncate text-xs text-muted-foreground">{t("hero.demoCommon")}: <span className="text-foreground">{f.comun.join(", ")}</span></p>
+            </div>
+            <div className="w-16 shrink-0 text-right">
+              <p className="num font-display text-xl font-bold">{f.pct}%</p>
+              <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-secondary">
+                <motion.div className="h-full rounded-full bg-primary" initial={{ width: reducir ? `${f.pct}%` : 0 }} animate={{ width: `${f.pct}%` }}
+                  transition={{ delay: 0.4 + i * 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] }} />
+              </div>
+              <p className="mt-0.5 text-[11px] text-muted-foreground">{t("hero.demoMatch")}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-2 text-xs text-muted-foreground">{t("hero.sample")}</p>
+    </div>
+  );
 }
 
-const HeroSection = ({ onStart }: HeroSectionProps) => {
+const HeroSection = ({ onStart }: { onStart: () => void }) => {
   const { t } = useTranslation();
-
+  const pasos = [1, 2, 3].map((n) => ({ n, t: t(`hero.step${n}`), d: t(`hero.step${n}d`) }));
   return (
-    <div
-      className="min-h-screen flex flex-col lg:flex-row items-center justify-center px-6 py-16 relative overflow-hidden"
-      style={{ background: "var(--gradient-dark)" }}
-    >
-      {/* Ambient glow */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
+    <>
+      <section className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 pb-16 pt-10 sm:pt-16 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:pt-20">
+        <div className="min-w-0">
+          <p className="text-sm font-medium text-muted-foreground">{t("hero.label")}</p>
+          <h1 className="mt-4 font-display text-[clamp(2.2rem,5.4vw,3.6rem)] font-extrabold leading-[1.05]">{t("hero.title")}</h1>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">{t("hero.description")}</p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+            <button onClick={onStart}
+              className="group inline-flex items-center gap-2.5 rounded-xl bg-primary px-7 py-4 text-base font-semibold text-primary-foreground transition hover:brightness-110 active:scale-[0.97]">
+              {t("hero.cta")} <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
+            </button>
+            <Link to="/empresas" className="text-[15px] font-semibold underline decoration-border decoration-2 underline-offset-[6px] transition hover:decoration-primary">
+              {t("hero.secondary")}
+            </Link>
+          </div>
+          <p className="mt-4 text-sm text-muted-foreground">{t("hero.time")}</p>
+        </div>
+        <VistaPrevia />
+      </section>
 
-      {/* Left — Text */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-10 max-w-xl lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0"
-      >
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="inline-flex items-center gap-2 bg-secondary border border-border rounded-full px-4 py-2 mb-6"
-        >
-          <Sparkles className="w-4 h-4 text-primary" />
-          <span className="text-sm text-muted-foreground font-medium">{t("hero.badge")}</span>
-        </motion.div>
-
-        {/* Title with neon glow */}
-        <motion.h1
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.35, duration: 0.6 }}
-          className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight mb-3 neon-title"
-        >
-          <span className="gradient-text">{t("hero.title1")}</span>
-          <span className="text-foreground">{t("hero.title2")}</span>
-        </motion.h1>
-
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="flex items-center justify-center lg:justify-start gap-2 text-muted-foreground mb-8"
-        >
-          <Cpu className="w-4 h-4 text-primary" />
-          <span className="text-sm font-mono">{t("hero.subtitle")}</span>
-        </motion.div>
-
-        {/* Description — appears after brain */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 0.7 }}
-          className="text-base sm:text-lg text-muted-foreground mb-10 max-w-md mx-auto lg:mx-0 leading-relaxed"
-        >
-          {t("hero.description")}
-        </motion.p>
-
-        {/* CTA with neon border */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.2, duration: 0.5 }}
-        >
-          <motion.button
-            onClick={onStart}
-            className="neon-button group relative inline-flex items-center gap-2 px-8 py-4 rounded-xl text-lg font-bold text-primary-foreground bg-primary overflow-hidden transition-all duration-300"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            {/* Shimmer effect */}
-            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-            <span className="relative z-10 flex items-center gap-2">
-              {t("hero.cta")}
-              <ArrowRight className="w-5 h-5" />
-            </span>
-          </motion.button>
-        </motion.div>
-      </motion.div>
-
-      {/* Right — Brain Network */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.4, duration: 1 }}
-        className="relative z-10 w-80 h-80 sm:w-96 sm:h-96 lg:w-[28rem] lg:h-[28rem]"
-      >
-        <BrainNetwork />
-      </motion.div>
-    </div>
+      <section className="border-t border-border bg-card/50">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <h2 className="font-display text-2xl font-bold sm:text-3xl">{t("hero.how")}</h2>
+          <ol className="mt-8 grid gap-8 sm:grid-cols-3">
+            {pasos.map((p) => (
+              <li key={p.n} className="flex gap-4">
+                <span className="num grid h-9 w-9 shrink-0 place-items-center rounded-full border-2 border-primary font-display text-sm font-bold text-primary">{p.n}</span>
+                <div>
+                  <h3 className="font-semibold">{p.t}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+    </>
   );
 };
 

@@ -28,8 +28,9 @@ export function useTTS() {
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = "es-MX";
-    utterance.rate = 1.7;
-    utterance.pitch = voiceType === 'male' ? 0.8 : 1.8;
+    // Velocidad y tono naturales (antes 1.7 y 1.8 sonaban acelerados y chillones)
+    utterance.rate = 1.05;
+    utterance.pitch = voiceType === 'male' ? 0.9 : 1.1;
     utterance.volume = volume;
 
     const spanishVoices = voices.filter(voice => voice.lang.startsWith('es'));

@@ -5,12 +5,23 @@
     "diagnostic": "Diagnostic"
   },
   "hero": {
-    "badge": "Intelligent Guidance System",
-    "title1": "Nexus",
-    "title2": "-TIC",
-    "subtitle": "ICT Engineering · Professional Internships",
-    "description": "We connect your profile with the ideal company for your professional internships, powered by artificial intelligence and smart compatibility analysis.",
-    "cta": "Start Profile Diagnostic"
+    "label": "School project · ICT Engineering, ITSM",
+    "title": "Find the right company for your professional internship.",
+    "description": "Answer five questions about what you enjoy and the technologies you know. Nexus-TIC compares your profile with each company and shows how well you match, with their openings.",
+    "cta": "Start the assessment",
+    "secondary": "Browse companies",
+    "time": "Takes about 3 minutes · with or without voice",
+    "how": "How it works",
+    "step1": "Tell us what you enjoy",
+    "step1d": "Design, networks, security, data, apps… pick the activities that interest you.",
+    "step2": "Pick your technologies",
+    "step2d": "The ones you know or are learning: React, Python, Linux, Docker and more.",
+    "step3": "Get your companies",
+    "step3d": "Sorted by match, with their openings and a PDF summary for your advisor.",
+    "demoTitle": "What your results look like",
+    "demoMatch": "match",
+    "demoCommon": "In common with you",
+    "sample": "Companies are examples to show how it works."
   },
   "companies": {
     "title": "Company",
@@ -24,7 +35,8 @@
     "companiesCount": "{{count}} company(ies) · {{vacancies}} vacancy(ies)",
     "noResults": "No companies found.",
     "noResultsHint": "Try different filters or search terms.",
-    "vacanciesAvailable": "{{count}} vacancy(ies) available"
+    "vacanciesAvailable": "{{count}} vacancy(ies) available",
+    "sampleNotice": "Sample companies: names, contacts and openings are fictional and only show how Nexus-TIC works."
   },
   "companyDetail": {
     "backToDirectory": "Back to directory",
@@ -34,27 +46,28 @@
     "website": "Website",
     "networks": "Networks",
     "vacanciesTitle": "Internship Vacancies ({{count}})",
-    "notFound": "Company not found."
+    "notFound": "Company not found.",
+    "sampleContact": "Sample data (fictional)"
   },
   "chat": {
-    "online": "Online",
+    "online": "Career guide",
     "chooseVoice": "Choose your preferred voice for the assistant:",
     "continue": "Continue",
-    "greeting": "Hello, future engineer! 🚀 I'm Nexus. My mission is to connect you with the ideal company for your internship. Shall we start with your name?",
+    "greeting": "Hi! I'm Nexus, your career guide. I'll help you find the right company for your internship. Shall we start with your name?",
     "namePlaceholder": "Type your name...",
-    "niceToMeet": "Nice to meet you, {{name}}. To get to know you better, tell me: which activities catch your attention? Select all that you like 👇",
+    "niceToMeet": "Nice to meet you, {{name}}. To get to know you better: which activities interest you most? Pick all you like.",
     "selectInterests": "Select the ones that interest you ({{count}} selected):",
     "continueWith": "Continue with {{count}} interest(s)",
-    "areaDetected": "Based on your interests, your profile aligns with **{{area}}** 🎯. Is that correct or do you prefer another area?",
+    "areaDetected": "Based on your interests, your profile fits {{area}}. Is that right, or would you prefer another area?",
     "confirmArea": "Confirm or choose another area:",
     "areaConfirm": "Yes, {{area}} is perfect",
     "greatChoice": "Excellent choice! Select the technologies you already master or are learning:",
     "selectTechs": "Select your technologies ({{count}} selected):",
     "continueTechs": "Continue with {{count}} technology(ies)",
-    "vibeQuestion": "What kind of vibe are you looking for in your internship?",
+    "vibeQuestion": "Which work mode do you prefer for your internship?",
     "chooseModality": "Choose your preferred modality:",
-    "processing": "Processing vacancies... 🔍",
-    "resultsFound": "Based on your profile, I've found these options that match your talent. Take a look! ✨",
+    "processing": "Comparing your profile with the companies…",
+    "resultsFound": "Done. These are the companies that fit you best.",
     "analyzing": "Analyzing your profile...",
     "voiceOn": "Voice enabled",
     "voiceOff": "Voice disabled"
@@ -71,5 +84,21 @@
   },
   "theme": {
     "toggle": "Toggle theme"
+  },
+  "notFound": {
+    "title": "This page doesn't exist",
+    "text": "The link may be mistyped or the page may have moved.",
+    "home": "Go home"
+  },
+  "voice": {
+    "title": "Do you want the assistant to talk?",
+    "description": "You can read the questions on screen or hear them out loud. You can change it later with the volume button.",
+    "none": "No voice",
+    "noneD": "Text only",
+    "female": "Female voice",
+    "male": "Male voice",
+    "voiceD": "Reads the questions out loud",
+    "start": "Start",
+    "cancel": "Back"
   }
 }

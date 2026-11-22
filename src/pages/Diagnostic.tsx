@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ChatBot, { type UserProfile } from "@/components/ChatBot";
 import ResultsDashboard from "@/components/ResultsDashboard";
-import { VoiceSelectionModal } from "@/components/VoiceSelectionModal";
+import { VoiceSelectionModal, type OpcionVoz } from "@/components/VoiceSelectionModal";
 import { useTTS } from "@/hooks/use-tts";
 
 const STORAGE_KEY = "nexus-tic-profile";
@@ -10,7 +10,6 @@ const STORAGE_KEY = "nexus-tic-profile";
 const Diagnostic = () => {
   const navigate = useNavigate();
   const tts = useTTS();
-  const [voice, setVoice] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(true);
   const [renderChatBot, setRenderChatBot] = useState(false);
   const [profile, setProfile] = useState<UserProfile | null>(() => {
@@ -24,9 +23,9 @@ const Diagnostic = () => {
     }
   }, [profile]);
 
-  const handleContinue = (selectedVoice: string) => {
-    setVoice(selectedVoice);
-    tts.setVoiceType(selectedVoice as 'male' | 'female');
+  const handleContinue = (voz: OpcionVoz) => {
+    if (voz === "none") tts.setVolume(0);
+    else { tts.setVoiceType(voz); tts.setVolume(1); }
     setShowModal(false);
     setTimeout(() => setRenderChatBot(true), 300); // Wait for animation
   };
@@ -43,7 +42,6 @@ const Diagnostic = () => {
     setProfile(null);
     setRenderChatBot(false);
     setShowModal(true);
-    setVoice(null);
   };
 
   if (profile) {

@@ -23,6 +23,7 @@ export interface Company {
   vacancies: Vacancy[];
 }
 
+/** EMPRESAS DE EJEMPLO: nombres, contactos y vacantes son ficticios (dominios .example, sin teléfonos ni redes). */
 export const companies: Company[] = [
   {
     id: "1",
@@ -36,8 +37,8 @@ export const companies: Company[] = [
     modality: ["Presencial en la región 📍", "Híbrido 💻"],
     location: "Monterrey, NL",
     benefits: ["Seguro médico", "Horarios flexibles", "Capacitación continua", "Bono por certificaciones"],
-    contact: { email: "rh@cybershieldmx.com", phone: "+52 81 1234 5678", website: "https://cybershieldmx.com" },
-    social: { linkedin: "https://linkedin.com/company/cybershieldmx", github: "https://github.com/cybershieldmx" },
+    contact: { email: "rh@cybershieldmx.example" },
+    social: {},
     vacancies: [
       { id: "v1", title: "Analista de Seguridad Jr.", description: "Monitoreo de SIEM y respuesta a incidentes de seguridad.", requirements: ["Python", "Linux", "Conocimientos de redes"], duration: "6 meses" },
       { id: "v2", title: "Pentester en Formación", description: "Participar en pruebas de penetración bajo supervisión del equipo ofensivo.", requirements: ["Linux", "Bash", "Fundamentos de ciberseguridad"], duration: "4 meses" },
@@ -55,8 +56,8 @@ export const companies: Company[] = [
     modality: ["Home Office 🏠", "Híbrido 💻"],
     location: "CDMX (Remoto)",
     benefits: ["100% remoto", "Equipo de trabajo proporcionado", "Viernes cortos", "Mentoría personalizada"],
-    contact: { email: "join@appverse.studio", website: "https://appverse.studio" },
-    social: { linkedin: "https://linkedin.com/company/appverse-studio", github: "https://github.com/appverse-studio" },
+    contact: { email: "join@appverse.example" },
+    social: {},
     vacancies: [
       { id: "v3", title: "Desarrollador Mobile Jr.", description: "Desarrollo de nuevas funcionalidades para apps en React Native.", requirements: ["React Native", "TypeScript", "Git"], duration: "6 meses" },
     ],
@@ -73,8 +74,8 @@ export const companies: Company[] = [
     modality: ["Presencial en la región 📍"],
     location: "Guadalajara, JAL",
     benefits: ["Acceso a GPU clusters", "Publicación de papers", "Conferencias internacionales", "Cafetería gratuita"],
-    contact: { email: "careers@datanova.ai", website: "https://datanova.ai" },
-    social: { linkedin: "https://linkedin.com/company/datanova-ai", github: "https://github.com/datanova-ai" },
+    contact: { email: "careers@datanova.example" },
+    social: {},
     vacancies: [
       { id: "v4", title: "Research Intern - NLP", description: "Investigación y desarrollo de modelos de procesamiento de lenguaje natural.", requirements: ["Python", "TensorFlow", "Estadística"], duration: "6 meses" },
       { id: "v5", title: "Data Engineer Jr.", description: "Diseño y mantenimiento de pipelines de datos para modelos de ML.", requirements: ["Python", "SQL", "Docker"], duration: "6 meses" },
@@ -92,8 +93,8 @@ export const companies: Company[] = [
     modality: ["Híbrido 💻", "Presencial en la región 📍"],
     location: "Querétaro, QRO",
     benefits: ["Certificaciones AWS pagadas", "Home office parcial", "Seguro de gastos médicos mayores"],
-    contact: { email: "talento@cloudnet.mx", phone: "+52 442 987 6543" },
-    social: { linkedin: "https://linkedin.com/company/cloudnet-solutions" },
+    contact: { email: "talento@cloudnet.example" },
+    social: {},
     vacancies: [
       { id: "v6", title: "Cloud Support Intern", description: "Soporte en migración y mantenimiento de infraestructura AWS.", requirements: ["AWS", "Linux", "Redes básicas"], duration: "4 meses" },
     ],
@@ -110,8 +111,8 @@ export const companies: Company[] = [
     modality: ["Home Office 🏠"],
     location: "100% Remoto",
     benefits: ["100% remoto global", "Horario flexible", "Budget para setup", "Clientes internacionales"],
-    contact: { email: "careers@pixelforge.dev", website: "https://pixelforge.dev" },
-    social: { linkedin: "https://linkedin.com/company/pixelforge", github: "https://github.com/pixelforge" },
+    contact: { email: "careers@pixelforge.example" },
+    social: {},
     vacancies: [
       { id: "v7", title: "Frontend Developer Intern", description: "Desarrollo de interfaces web con React y TypeScript.", requirements: ["React", "TypeScript", "CSS/Tailwind"], duration: "6 meses" },
       { id: "v8", title: "Fullstack Intern", description: "Desarrollo de APIs con Laravel y frontend con Vue.js.", requirements: ["Vue.js", "Laravel", "SQL"], duration: "6 meses" },
@@ -129,8 +130,8 @@ export const companies: Company[] = [
     modality: ["Presencial en la región 📍", "Híbrido 💻"],
     location: "León, GTO",
     benefits: ["Lab de hardware", "Proyectos de investigación", "Horario flexible"],
-    contact: { email: "lab@mobiletech.mx" },
-    social: { github: "https://github.com/mobiletech-labs" },
+    contact: { email: "lab@mobiletech.example" },
+    social: {},
     vacancies: [
       { id: "v9", title: "Mobile Dev Intern", description: "Desarrollo de apps con Flutter para proyectos IoT.", requirements: ["Flutter", "Dart", "Firebase"], duration: "6 meses" },
     ],
@@ -147,8 +148,8 @@ export const companies: Company[] = [
     modality: ["Híbrido 💻"],
     location: "Puebla, PUE",
     benefits: ["Certificaciones pagadas", "CTF internos", "Mentoría de expertos"],
-    contact: { email: "rh@secureops.mx", website: "https://secureops.mx" },
-    social: { linkedin: "https://linkedin.com/company/secureops-mx" },
+    contact: { email: "rh@secureops.example" },
+    social: {},
     vacancies: [
       { id: "v10", title: "Pentester Trainee", description: "Entrenamiento en técnicas de pentesting y elaboración de reportes.", requirements: ["Linux", "Python", "Redes"], duration: "4 meses" },
     ],
@@ -165,8 +166,8 @@ export const companies: Company[] = [
     modality: ["Home Office 🏠", "Híbrido 💻"],
     location: "Remoto / Tijuana, BC",
     benefits: ["Clientes de Silicon Valley", "Pago en USD", "Equipo proporcionado", "Vacaciones flexibles"],
-    contact: { email: "join@webflow.agency", website: "https://webflow.agency" },
-    social: { linkedin: "https://linkedin.com/company/webflow-agency", github: "https://github.com/webflow-agency" },
+    contact: { email: "join@webflow.example" },
+    social: {},
     vacancies: [
       { id: "v11", title: "React Developer Intern", description: "Desarrollo de aplicaciones web con React y Node.js para clientes internacionales.", requirements: ["React", "TypeScript", "Node.js"], duration: "6 meses" },
       { id: "v12", title: "QA Automation Intern", description: "Creación de pruebas automatizadas para aplicaciones web.", requirements: ["TypeScript", "Testing", "Git"], duration: "4 meses" },
