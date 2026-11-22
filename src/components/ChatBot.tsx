@@ -243,6 +243,11 @@ const ChatBot = ({ onComplete, onBack, tts }: ChatBotProps) => {
               </Popover>
             </div>
           </div>
+          {tts.enabled && !tts.disponible && (
+            <p role="status" className="border-t border-border px-4 py-2 text-xs text-muted-foreground">
+              Tu navegador no tiene voces en español instaladas, así que el asistente no puede hablar. Puedes seguir leyendo en pantalla.
+            </p>
+          )}
           <ChatProgressBar current={Math.min(stepNumber[step], totalSteps)} total={totalSteps} />
         </div>
         <div className="hidden lg:block p-4 text-sm text-muted-foreground">

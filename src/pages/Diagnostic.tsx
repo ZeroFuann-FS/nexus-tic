@@ -25,7 +25,7 @@ const Diagnostic = () => {
 
   const handleContinue = (voz: OpcionVoz) => {
     if (voz === "none") tts.setVolume(0);
-    else { tts.setVoiceType(voz); tts.setVolume(1); }
+    else { tts.setVoiceType(voz); tts.setVolume(1); tts.desbloquear(); }   // dentro del toque: iOS solo deja hablar así
     setShowModal(false);
     setTimeout(() => setRenderChatBot(true), 300); // Wait for animation
   };

@@ -1,84 +1,99 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 
+const sintesis = () => (typeof window !== "undefined" && "speechSynthesis" in window ? window.speechSynthesis : null);
+
+/** Elige una voz en español: primero de México, luego Latinoamérica/EE. UU., luego cualquiera en español. */
+function elegirVoz(tipo: "male" | "female"): SpeechSynthesisVoice | undefined {
+  const s = sintesis();
+  if (!s) return undefined;
+  const espanol = s.getVoices().filter((v) => v.lang.toLowerCase().startsWith("es"));
+  if (!espanol.length) return undefined;
+  const pista = tipo === "male"
+    ? /male|hombre|masculin|jorge|juan|diego|carlos|pablo|javier|raul|enrique|miguel/i
+    : /female|mujer|femenin|paulina|monica|sabina|carmen|rosa|maria|ana|lucia|sofia|helena|laura|elvira/i;
+  const porRegion = (v: SpeechSynthesisVoice) => (/es[-_]mx/i.test(v.lang) ? 0 : /es[-_](us|419)/i.test(v.lang) ? 1 : 2);
+  const orden = [...espanol].sort((a, b) => porRegion(a) - porRegion(b));
+  return orden.find((v) => pista.test(v.name)) ?? orden[tipo === "male" ? Math.min(1, orden.length - 1) : 0];
+}
+
 export function useTTS() {
   const [enabled, setEnabled] = useState(true);
   const [speaking, setSpeaking] = useState(false);
-  const [voiceType, setVoiceType] = useState<'male' | 'female'>('female');
+  const [voiceType, setVoiceType] = useState<"male" | "female">("female");
   const [volume, setVolume] = useState(1);
   const [prevVolume, setPrevVolume] = useState(1);
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  /** false si el navegador no tiene ninguna voz en español instalada (se avisa en el chat). */
+  const [disponible, setDisponible] = useState(true);
+  const seguro = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
-    const handleVoicesChanged = () => {
-      setVoices(window.speechSynthesis.getVoices());
-    };
-    window.speechSynthesis.onvoiceschanged = handleVoicesChanged;
-    handleVoicesChanged(); // Also call it directly in case voices are already loaded
-    return () => {
-      window.speechSynthesis.onvoiceschanged = null;
-    };
+    const s = sintesis();
+    if (!s) { setDisponible(false); return; }
+    const revisar = () => setDisponible(s.getVoices().some((v) => v.lang.toLowerCase().startsWith("es")) || s.getVoices().length === 0);
+    s.addEventListener?.("voiceschanged", revisar);
+    revisar();
+    // Si a los 2 s sigue sin voces en español, se avisa (en Linux hay navegadores que no traen ninguna)
+    const t = setTimeout(() => setDisponible(s.getVoices().some((v) => v.lang.toLowerCase().startsWith("es"))), 2000);
+    return () => { s.removeEventListener?.("voiceschanged", revisar); clearTimeout(t); };
+  }, []);
+
+  /** Se llama dentro del toque del botón: iOS y algunos navegadores solo dejan hablar si la primera vez viene de un toque. */
+  const desbloquear = useCallback(() => {
+    const s = sintesis();
+    if (!s) return;
+    try {
+      s.cancel();
+      s.resume();
+      const u = new SpeechSynthesisUtterance(" ");
+      u.volume = 0;
+      s.speak(u);
+    } catch { /* sin voz */ }
   }, []);
 
   const speak = useCallback((text: string) => {
-    if (!enabled || !window.speechSynthesis || voices.length === 0) return;
-    window.speechSynthesis.cancel();
+    const s = sintesis();
+    if (!enabled || !s) return;
+    s.cancel();
+    const limpio = text
+      .replace(/[\p{Extended_Pictographic}\u{FE0F}]/gu, "")
+      .replace(/\*\*/g, "")
+      .trim();
+    if (!limpio) return;
 
-    const cleanText = text.replace(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '').replace(/[^\w\s.,!?¿¡áéíóúÁÉÍÓÚñÑ]/g, '');
-
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.lang = "es-MX";
-    // Velocidad y tono naturales (antes 1.7 y 1.8 sonaban acelerados y chillones)
-    utterance.rate = 1.05;
-    utterance.pitch = voiceType === 'male' ? 0.9 : 1.1;
-    utterance.volume = volume;
-
-    const spanishVoices = voices.filter(voice => voice.lang.startsWith('es'));
-    if (spanishVoices.length > 0) {
-      const selectedVoice = spanishVoices.find(voice => 
-        voiceType === 'male' ? 
-          voice.name.toLowerCase().includes('male') || voice.name.toLowerCase().includes('hombre') || voice.name.toLowerCase().includes('javier') || voice.name.toLowerCase().includes('carlos') || voice.name.toLowerCase().includes('pablo') || voice.name.toLowerCase().includes('diego') :
-          voice.name.toLowerCase().includes('female') || voice.name.toLowerCase().includes('mujer') || voice.name.toLowerCase().includes('carmen') || voice.name.toLowerCase().includes('rosa') || voice.name.toLowerCase().includes('maría') || voice.name.toLowerCase().includes('ana') || voice.name.toLowerCase().includes('lucia') || voice.name.toLowerCase().includes('sofia')
-      ) || spanishVoices[voiceType === 'male' ? 0 : 1] || spanishVoices[0];
-      utterance.voice = selectedVoice;
-    }
+    const u = new SpeechSynthesisUtterance(limpio);
+    u.lang = "es-MX";
+    u.rate = 1.05;   // velocidad natural
+    u.pitch = voiceType === "male" ? 0.9 : 1.1;
+    u.volume = volume;
+    const voz = elegirVoz(voiceType);   // las voces se leen al momento (pueden cargar tarde)
+    if (voz) u.voice = voz;
 
     setSpeaking(true);
-    utterance.onstart = () => setSpeaking(true);
-    utterance.onend = () => setSpeaking(false);
-    utterance.onerror = () => setSpeaking(false);
-
-    utteranceRef.current = utterance;
-    window.speechSynthesis.speak(utterance);
-  }, [enabled, voiceType, volume, voices]);
+    u.onstart = () => { clearTimeout(seguro.current); setSpeaking(true); };
+    u.onend = () => { clearTimeout(seguro.current); setSpeaking(false); };
+    u.onerror = () => { clearTimeout(seguro.current); setSpeaking(false); };
+    // Si el navegador no arranca a hablar, no se queda trabado esperando
+    clearTimeout(seguro.current);
+    seguro.current = setTimeout(() => { if (!s.speaking) setSpeaking(false); }, 2500);
+    s.speak(u);
+  }, [enabled, voiceType, volume]);
 
   const stop = useCallback(() => {
-    window.speechSynthesis?.cancel();
+    sintesis()?.cancel();
+    clearTimeout(seguro.current);
     setSpeaking(false);
   }, []);
 
   const toggle = useCallback(() => {
-    if (volume > 0) {
-      setPrevVolume(volume);
-      setVolume(0);
-    } else {
-      setVolume(prevVolume);
-    }
+    if (volume > 0) { setPrevVolume(volume); setVolume(0); } else setVolume(prevVolume);
   }, [volume, prevVolume]);
 
   useEffect(() => {
-    if (volume > 0 && !enabled) {
-      setEnabled(true);
-    }
-    if (volume === 0 && enabled) {
-      setEnabled(false);
-      stop();
-    }
+    if (volume > 0 && !enabled) setEnabled(true);
+    if (volume === 0 && enabled) { setEnabled(false); stop(); }
   }, [volume, enabled, stop]);
 
-  useEffect(() => {
-    return () => { window.speechSynthesis?.cancel(); };
-  }, []);
+  useEffect(() => () => { sintesis()?.cancel(); }, []);
 
-  return { enabled, speaking, speak, stop, toggle, voiceType, setVoiceType, volume, setVolume };
+  return { enabled, speaking, speak, stop, toggle, voiceType, setVoiceType, volume, setVolume, disponible, desbloquear };
 }
