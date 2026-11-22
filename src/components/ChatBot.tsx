@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import TypingIndicator from "./TypingIndicator";
 import ChatProgressBar from "./ChatProgressBar";
 import Marca from "./Marca";
+import BrainNetwork from "./BrainNetwork";
 import { sinEmoji } from "@/lib/utils";
 import AudioIndicator from "./AudioIndicator";
 import { useTTS } from "@/hooks/use-tts";
@@ -408,7 +409,8 @@ const ChatBot = ({ onComplete, onBack, tts }: ChatBotProps) => {
           )}
 
           {step === "processing" && (
-            <div className="text-center text-sm text-muted-foreground py-2">
+            <div className="flex flex-col items-center gap-1 py-1 text-sm text-muted-foreground" role="status">
+              <BrainNetwork size={112} etiqueta={t("chat.analyzing")} />
               {t("chat.analyzing")}
             </div>
           )}

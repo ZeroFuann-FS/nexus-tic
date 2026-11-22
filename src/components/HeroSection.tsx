@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import BrainNetwork from "./BrainNetwork";
 
 /** Una tarjeta de resultado real (misma forma que en el diagnóstico) para mostrar qué obtienes. */
 function VistaPrevia() {
@@ -47,7 +48,10 @@ const HeroSection = ({ onStart }: { onStart: () => void }) => {
     <>
       <section className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 pb-16 pt-10 sm:pt-16 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:pt-20">
         <div className="min-w-0">
-          <p className="text-sm font-medium text-muted-foreground">{t("hero.label")}</p>
+          <div className="flex items-center gap-3">
+            <BrainNetwork size={84} className="-ml-2" />
+            <p className="text-sm font-medium text-muted-foreground">{t("hero.label")}</p>
+          </div>
           <h1 className="mt-4 font-display text-[clamp(2.2rem,5.4vw,3.6rem)] font-extrabold leading-[1.05]">{t("hero.title")}</h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">{t("hero.description")}</p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
