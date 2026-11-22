@@ -17,14 +17,16 @@
 
 </div>
 
-Los estudiantes de TICs suelen elegir dónde hacer sus residencias sin saber qué empresa encaja con su perfil. Nexus-TIC los guía con un **chat de diagnóstico** que hace preguntas paso a paso, arma su perfil y recomienda empresas **ordenadas por compatibilidad**.
+Los estudiantes de TICs suelen elegir dónde hacer sus residencias sin saber qué empresa encaja con su perfil. Nexus-TIC los guía con un **chat de diagnóstico** de cinco preguntas, arma su perfil y les muestra las empresas **ordenadas por compatibilidad**. Funciona con reglas en el navegador; no usa servicios de IA.
 
 ## Funciones
 
-- **Chat de diagnóstico** con 5 pasos, barra de progreso, indicador de "escribiendo" y **voz** (texto a voz con selección de voz y volumen).
-- **Resultados** con porcentaje de compatibilidad por empresa; se conservan al navegar.
+- **Chat de diagnóstico** con 5 pasos, barra de progreso e indicador de "escribiendo".
+- **Voz opcional:** solo texto (por defecto), voz femenina o masculina, con volumen ajustable y aviso si el navegador no tiene voces en español.
+- **Resultados** con porcentaje de compatibilidad, tecnologías en común y ficha en **PDF**.
 - **Directorio de empresas** con búsqueda, filtros por tecnología y detalle de vacantes.
-- **Español e inglés**, modo claro y oscuro, y animaciones (red neuronal en el inicio).
+- **Español e inglés**, modo claro u oscuro según el sistema, y la animación del cerebro de puntos.
+- Empresas marcadas como **de ejemplo** (contactos ficticios con dominios `.example`).
 - Análisis de usabilidad documentado en [`docs/analisis-cognitivo.md`](docs/analisis-cognitivo.md): modelos mentales, problemas detectados y soluciones.
 
 ## Capturas
@@ -35,7 +37,7 @@ Los estudiantes de TICs suelen elegir dónde hacer sus residencias sin saber qu�
 
 ## Tecnología
 
-**React 18 · TypeScript · Vite · Tailwind CSS · shadcn/ui · Framer Motion · i18next · Web Speech API · Vercel**
+**React 18 · TypeScript · Vite · Tailwind CSS · shadcn/ui · Framer Motion · React Router 7 · i18next · Web Speech API · Vercel**
 
 <details>
 <summary><b>Cómo correrlo</b></summary>
